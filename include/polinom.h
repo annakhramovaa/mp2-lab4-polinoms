@@ -23,4 +23,5 @@ public:
 	double Str_To_Double(string str);
 	Node* at(int i);
 	void bubblesort();
+	void show();
 };

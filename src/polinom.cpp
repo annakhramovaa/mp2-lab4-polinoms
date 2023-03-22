@@ -50,19 +50,16 @@ void Polinom_Lst::Monom(string pol) {
 		while ((pol[i] != 'x') && (pol[i] != 'y') && (pol[i] != 'z')) {
 			koef += pol[i];
 			i++;
-			cout << "k";
 		}
 
 		if (pol[i] == 'x') {
 			if (pol[i + 1] == '^') {
 				X = int(pol[i + 2]) - 48;
 				i = i + 3;
-				cout << X;
 			}
 			else {
 				X = 1;
 				i = i + 1;
-				cout << X;
 			}
 
 		}
@@ -70,12 +67,10 @@ void Polinom_Lst::Monom(string pol) {
 			if (pol[i + 1] == '^') {
 				Y = int(pol[i + 2]) - 48;
 				i = i + 3;
-				cout << Y;
 			}
 			else {
 				Y = 1;
 				i = i + 1;
-				cout << Y;
 			}
 
 		}
@@ -83,17 +78,18 @@ void Polinom_Lst::Monom(string pol) {
 			if (pol[i + 1] == '^') {
 				Z = int(pol[i + 2]) - 48;
 				i = i + 3;
-				cout << Z;
 			}
 			else {
 				Z = 1;
 				i = i + 1;
-				cout << Z;
 			}
 
 		}
 		int XYZ = X * 100 + Y * 10 + Z;
+		cout << koef << "\n";
 		push_back(Str_To_Double(koef), XYZ);
+		cout << koef << "\n";
+		cout << XYZ << "\n";
 
 	}
 }
@@ -141,5 +137,19 @@ void Polinom_Lst::bubblesort() {
 				i = tmp;
 			}
 		}
+	}
+}
+
+void Polinom_Lst::show() {
+	for (Node* i = head; i!=nullptr; i= i->next) {	
+		if (i->koef > 0) cout << "+";
+		cout << i->koef;
+		cout << "x^";
+		cout << i->xyz / 100;
+		cout << "y^";
+		cout << i->xyz / 10 %10;
+		cout << "z^";
+		cout << i->xyz % 10;
+
 	}
 }
