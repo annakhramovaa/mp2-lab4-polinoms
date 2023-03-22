@@ -14,7 +14,10 @@ Polinom_Lst::Polinom_Lst(string pol) {
 	this->head = nullptr;
 	size = 0;
 	Monom(pol);
+	bubblesort();
 }
+
+Polinom_Lst::Polinom_Lst() {}
 
 Polinom_Lst::~Polinom_Lst() {}
 
@@ -163,4 +166,12 @@ void Polinom_Lst::show() {
 		cout << i->xyz % 10;
 
 	}
+}
+
+Polinom_Lst Polinom_Lst::operator*(double val) {
+	Polinom_Lst b;
+	for (Node* i = head; i != nullptr; i++) {
+		b.push_back(val * i->koef, i->xyz);
+	}
+	return b;
 }

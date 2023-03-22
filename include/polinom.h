@@ -16,6 +16,7 @@ private:
 	size_t size;
 public:
 	Polinom_Lst(string pol);
+	Polinom_Lst();
 	~Polinom_Lst();
 	size_t Get_size();
 	void push_back(double koef, int xyz);
@@ -24,4 +25,5 @@ public:
 	Node* at(int i);
 	void bubblesort();
 	void show();
+	Polinom_Lst operator*(double val);
 };
