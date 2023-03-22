@@ -38,13 +38,17 @@ void Polinom_Lst::push_back(double koef, int xyz) {
 
 void Polinom_Lst::Monom(string pol) {
 
-	int X = 0, Y = 0, Z = 0;
+
 	int i = 0;
 
 	while (i != pol.size()) {
+		int X = 0, Y = 0, Z = 0;
 		string koef;
 		if (pol[i] == '-') {
 			koef += "-";
+			i++;
+		}
+		if (pol[i] == '+') {
 			i++;
 		}
 		while ((pol[i] != 'x') && (pol[i] != 'y') && (pol[i] != 'z')) {
@@ -86,34 +90,41 @@ void Polinom_Lst::Monom(string pol) {
 
 		}
 		int XYZ = X * 100 + Y * 10 + Z;
-		cout << koef << "\n";
 		push_back(Str_To_Double(koef), XYZ);
-		cout << koef << "\n";
 		cout << XYZ << "\n";
 
 	}
 }
 
 double Polinom_Lst::Str_To_Double(string str) {
-
+	cout << "str" << str << "\n";
 	int i = 0;
-	int pow = 10;
-	int value = int(str[0]) - 48;
+	int pow = 1;
+	double value = 0;
+	int sign = 1;
 
-	for (i = 1; i < str.size() && str != ","; i++) {
+	if (str[0] == '-') {
+		sign = -1;
+		i++;
+	}
+	for (; i < str.size() && str[i] != '.'; i++) {
 		if (int(str[i]) >= 48 && int(str[i]) <= 57) {
 			value = value * pow + (int(str[i]) - 48);
-		}
-	}
-	i++;
-
-	for (; i < str.size(); i++) {
-		if (int(str[i]) >= 48 && int(str[i]) <= 57) {
-			value = value + (int(str[i]) - 48) / pow;
 			pow = pow * 10;
 		}
 	}
-	return value;
+	i++;
+	pow = 10;
+
+	for (; i < str.size(); i++) {
+		if ((str[i]) >= '0' && (str[i]) <= '9') {
+			value = value + (double(str[i]) - 48) / pow;
+			pow = pow * 10;
+		}
+	}
+	cout <<"val" << value << "\n";
+	return sign * value;
+
 }
 
 Node* Polinom_Lst::at(int i) {
