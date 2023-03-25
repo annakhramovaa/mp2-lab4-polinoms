@@ -23,7 +23,9 @@ public:
 	void Monom(string pol);
 	double Str_To_Double(string str);
 	Node* at(int i);
-	void bubblesort();
+	//void bubblesort();
+	void Sort();
 	void show();
 	Polinom_Lst operator*(double val);
+	Polinom_Lst operator+(Polinom_Lst& b);
 };

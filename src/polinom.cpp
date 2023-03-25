@@ -14,7 +14,8 @@ Polinom_Lst::Polinom_Lst(string pol) {
 	this->head = nullptr;
 	size = 0;
 	Monom(pol);
-	bubblesort();
+	//bubblesort();
+	Sort();
 }
 
 Polinom_Lst::Polinom_Lst() {}
@@ -94,13 +95,11 @@ void Polinom_Lst::Monom(string pol) {
 		}
 		int XYZ = X * 100 + Y * 10 + Z;
 		push_back(Str_To_Double(koef), XYZ);
-		cout << XYZ << "\n";
 
 	}
 }
 
 double Polinom_Lst::Str_To_Double(string str) {
-	cout << "str" << str << "\n";
 	int i = 0;
 	int pow = 1;
 	double value = 0;
@@ -125,7 +124,6 @@ double Polinom_Lst::Str_To_Double(string str) {
 			pow = pow * 10;
 		}
 	}
-	cout <<"val" << value << "\n";
 	return sign * value;
 
 }
@@ -142,16 +140,42 @@ Node* Polinom_Lst::at(int i) {
 	}
 }
 
-void Polinom_Lst::bubblesort() {
-	for (Node* i = head; i != nullptr; i = i->next) {
-		for (Node* j = i; j != nullptr; j = j->next) {
-			if (j->xyz > i->xyz) {
-				Node* tmp = j;
-				j = i;
-				i = tmp;
-			}
+//void Polinom_Lst::bubblesort() {
+//	for (Node* i = head; i != nullptr; i = i->next) {
+//		for (Node* j = i; j != nullptr; j = j->next) {
+//			if (j->xyz > i->xyz) {
+//				Node* tmp = j;
+//				j = i;
+//				i = tmp;
+//			}
+//		}
+//	}
+//}
+
+void Polinom_Lst::Sort()
+{
+	Node* a, * b, * p, * h = nullptr;
+
+	for (Node* i = head; i != nullptr; ) {
+		a = i;
+		i = i->next;
+		b = h;
+		for (p = nullptr; (b != nullptr) && (a->xyz < b->xyz); ) {
+			p = b;
+			b = b->next;
+		}
+
+		if (p == nullptr) {
+			a->next = h;
+			h = a;
+		}
+		else {
+			a->next = b;
+			p->next = a;
 		}
 	}
+	if (h != nullptr)
+		head = h;
 }
 
 void Polinom_Lst::show() {
@@ -170,8 +194,48 @@ void Polinom_Lst::show() {
 
 Polinom_Lst Polinom_Lst::operator*(double val) {
 	Polinom_Lst b;
-	for (Node* i = head; i != nullptr; i++) {
+	for (Node* i = head; i != nullptr; i = i->next) {
 		b.push_back(val * i->koef, i->xyz);
+
 	}
 	return b;
+}
+
+
+Polinom_Lst Polinom_Lst::operator+(Polinom_Lst& b) {
+	Node* first = this->head;
+	Node* second = b.head;
+	Polinom_Lst third;
+	while (first != nullptr && second != nullptr) {
+		if (first->xyz > second->xyz) {
+			third.push_back(first->koef, first->xyz);
+			first = first->next;
+			cout << 1;
+		}
+
+		if (first->xyz < second->xyz) {
+			third.push_back(second->koef, second->xyz);
+			second = second->next;
+			cout << 2;
+		}
+
+		if (first->xyz == second->xyz) {
+			third.push_back(first->koef + second->koef, first->koef);
+			first = first->next;
+			second = second->next;
+			cout << 3;
+		}
+	}
+	while (first != nullptr) {
+		third.push_back(first->koef, first->xyz);
+		first = first->next;
+		cout << 4;
+	}
+
+	while (second != nullptr) {
+		third.push_back(second->koef, second->xyz);
+		second = second->next;
+		cout << 5;
+	}
+	return third;
 }
