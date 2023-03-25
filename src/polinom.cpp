@@ -20,7 +20,12 @@ Polinom_Lst::Polinom_Lst(string pol) {
 
 Polinom_Lst::Polinom_Lst() {}
 
-Polinom_Lst::~Polinom_Lst() {}
+Polinom_Lst::~Polinom_Lst() {
+	for (Node* i = head->next; i != nullptr; i = head->next) {
+		delete head;
+		head = i;
+	}
+}
 
 size_t Polinom_Lst::Get_size() {
 	return size;
@@ -192,7 +197,7 @@ void Polinom_Lst::show() {
 	}
 }
 
-Polinom_Lst Polinom_Lst::operator*(double val) {
+Polinom_Lst Polinom_Lst::operator*(const double val) {
 	Polinom_Lst b;
 	for (Node* i = head; i != nullptr; i = i->next) {
 		b.push_back(val * i->koef, i->xyz);
@@ -202,7 +207,7 @@ Polinom_Lst Polinom_Lst::operator*(double val) {
 }
 
 
-Polinom_Lst Polinom_Lst::operator+(Polinom_Lst& b) {
+Polinom_Lst Polinom_Lst::operator+(const Polinom_Lst& b) {
 	Node* first = this->head;
 	Node* second = b.head;
 	Polinom_Lst third;
@@ -213,17 +218,20 @@ Polinom_Lst Polinom_Lst::operator+(Polinom_Lst& b) {
 			cout << 1;
 		}
 
-		if (first->xyz < second->xyz) {
+		else if (first->xyz < second->xyz) {
 			third.push_back(second->koef, second->xyz);
 			second = second->next;
 			cout << 2;
 		}
 
-		if (first->xyz == second->xyz) {
+		else if (first->xyz == second->xyz) {
 			third.push_back(first->koef + second->koef, first->koef);
 			first = first->next;
 			second = second->next;
 			cout << 3;
+		}
+		else {
+			cout << "error";
 		}
 	}
 	while (first != nullptr) {
@@ -238,4 +246,29 @@ Polinom_Lst Polinom_Lst::operator+(Polinom_Lst& b) {
 		cout << 5;
 	}
 	return third;
+}
+
+Polinom_Lst Polinom_Lst::operator-(Polinom_Lst& b) {
+	return *this + (b * (-1));
+}
+
+Polinom_Lst& Polinom_Lst::operator=(Polinom_Lst& b) {
+	if (this == &b) return *this;
+	this->~Polinom_Lst();
+	this->size = b.size;
+	if (b.head != nullptr) {
+		for (Node* i = head; i != nullptr; i = i->next) {
+			this->push_back(i->koef, i->xyz);
+		}
+	}
+}
+
+Polinom_Lst::Polinom_Lst(Polinom_Lst& b) {
+	this->size = b.size;
+	if (b.head != nullptr) {
+	Node* second = b.head;
+	for (Node* i = head; i != nullptr;i = i->next) {
+		this->push_back(second->koef, second->xyz);
+	}	
+	}
 }
