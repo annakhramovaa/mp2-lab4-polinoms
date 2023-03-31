@@ -14,11 +14,8 @@ Polinom_Lst::Polinom_Lst(string pol) {
 	this->head = nullptr;
 	size = 0;
 	Monom(pol);
-	//bubblesort();
 	Sort();
 }
-
-Polinom_Lst::Polinom_Lst() {}
 
 Polinom_Lst::~Polinom_Lst() {
 	for (Node* i = head->next; i != nullptr; i = head->next) {
@@ -157,8 +154,7 @@ Node* Polinom_Lst::at(int i) {
 //	}
 //}
 
-void Polinom_Lst::Sort()
-{
+void Polinom_Lst::Sort() {
 	Node* a, * b, * p, * h = nullptr;
 
 	for (Node* i = head; i != nullptr; ) {
@@ -234,23 +230,46 @@ Polinom_Lst Polinom_Lst::operator+(const Polinom_Lst& b) {
 			cout << "error";
 		}
 	}
-	while (first != nullptr) {
-		third.push_back(first->koef, first->xyz);
-		first = first->next;
-		cout << 4;
+	if ((first != nullptr) && (second != nullptr)) {
+		while (first != nullptr) {
+			third.push_back(first->koef, first->xyz);
+			first = first->next;
+			cout << 4;
+		}
 	}
 
-	while (second != nullptr) {
-		third.push_back(second->koef, second->xyz);
-		second = second->next;
-		cout << 5;
+	if ((first != nullptr) && (second != nullptr)) {
+		while (second != nullptr) {
+			third.push_back(second->koef, second->xyz);
+			second = second->next;
+			cout << 5;
+		}
 	}
 	return third;
 }
 
-Polinom_Lst Polinom_Lst::operator-(Polinom_Lst& b) {
-	return *this + (b * (-1));
+bool Polinom_Lst::operator==(Polinom_Lst& b) {
+	Node* first = this->head;
+	Node* second = b.head;
+	if (this->size == b.size) {
+		for (Node* i = head; i != nullptr; i = i->next) {
+			if ((first->xyz == second->xyz) && (first->koef == second->koef))  return true;
+		}
+		return false;
+	}
+	else return false;
 }
+
+bool Polinom_Lst::operator!=(Polinom_Lst& b) {
+	return !(*this == b);
+}
+
+//Polinom_Lst Polinom_Lst::operator-(Polinom_Lst& b) {
+//	Polinom_Lst B;
+//	B = *this + (b * (-1));
+//	return B;
+//	//return *this + (b * (-1));
+//}
 
 Polinom_Lst& Polinom_Lst::operator=(Polinom_Lst& b) {
 	if (this == &b) return *this;

@@ -29,6 +29,8 @@ public:
 	void show();
 	Polinom_Lst operator*(const double val);
 	Polinom_Lst operator+(const Polinom_Lst& b);
-	Polinom_Lst operator-(Polinom_Lst& b);
+	//Polinom_Lst operator-(Polinom_Lst& b);
 	Polinom_Lst& operator=(Polinom_Lst& b);
+	bool operator==(Polinom_Lst& b);
+	bool operator!=(Polinom_Lst& b);
 };
