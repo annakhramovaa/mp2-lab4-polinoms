@@ -8,10 +8,10 @@ int main()
 	a.show();
 	cout << "\n";
 	b.show();
-	///*cout << "\n";
-	//(a * 5).show();*/
-	//cout << "\n";
-	//(a + b).show();
-	//a = b;
-	//a.show();
+	cout << "\n";
+	(a * 5).show();
+	cout << "\n";
+	(a + b).show();
+	/*a = b;
+	a.show();*/
 }

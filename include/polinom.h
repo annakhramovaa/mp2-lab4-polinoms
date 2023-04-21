@@ -24,13 +24,13 @@ public:
 	void Monom(string pol);
 	double Str_To_Double(string str);
 	Node* at(int i);
-	//void bubblesort();
 	void Sort();
 	void show();
 	Polinom_Lst operator*(const double val);
 	Polinom_Lst operator+(const Polinom_Lst& b);
-	//Polinom_Lst operator-(Polinom_Lst& b);
+	Polinom_Lst operator-(Polinom_Lst& b);
 	Polinom_Lst& operator=(Polinom_Lst& b);
 	bool operator==(Polinom_Lst& b);
 	bool operator!=(Polinom_Lst& b);
+	Polinom_Lst operator*(Polinom_Lst& b);
 };
